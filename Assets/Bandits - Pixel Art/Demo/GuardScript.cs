@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 public class GuardScript : MonoBehaviour {
+
+     
 
     [SerializeField] float      speed = 1.0f;
     [SerializeField] float      jumpForce = 4.0f;
@@ -12,14 +13,13 @@ public class GuardScript : MonoBehaviour {
     private Rigidbody2D         body2d;
     private bool                combatIdle = false;
     private bool                isGrounded = true;
-    
-
-
+    int jumpCount = 0;
 
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
         body2d = GetComponent<Rigidbody2D>();
+        
 	}
 	
 	// Update is called once per frame
@@ -45,7 +45,9 @@ public class GuardScript : MonoBehaviour {
             animator.SetTrigger("Death");
         //Hurt
         else if (Input.GetKeyDown("h"))
+        {
             animator.SetTrigger("Hurt");
+        }
         //Recover
         else if (Input.GetKeyDown("r"))
             animator.SetTrigger("Recover");
@@ -56,18 +58,29 @@ public class GuardScript : MonoBehaviour {
 
 
         //Attack
-        else if (Input.GetMouseButtonDown(0))
+        else if (Input.GetKeyDown("q"))
         {
             animator.SetTrigger("Attack");
-            audio
-     
+            GetComponent<AudioSource>().Play();
+            
         }
 
         //Jump
-        else if (Input.GetKeyDown("space") && isGrounded)
+        else if (Input.GetKeyDown("w") && isGrounded)
         {
+            jumpCount = 0;
             animator.SetTrigger("Jump");
             body2d.velocity = new Vector2(body2d.velocity.x, jumpForce);
+            
+           
+        }
+
+         else if (jumpCount < 1 && Input.GetKeyDown("w"))
+        {
+            
+            animator.SetTrigger("Jump");
+            body2d.velocity = new Vector2(body2d.velocity.x, jumpForce);
+            jumpCount++;
         }
 
         //Walk
@@ -85,4 +98,6 @@ public class GuardScript : MonoBehaviour {
     {
         return Physics2D.Raycast(transform.position, -Vector3.up, 0.03f);
     }
+
+    
 }
