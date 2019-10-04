@@ -26,6 +26,7 @@ public class GuardScript : MonoBehaviour {
 	void Update () {
         // -- Handle input and movement --
         inputX = Input.GetAxis("Horizontal");
+        
 
         // Swap direction of sprite depending on walk direction
         if (inputX > 0)

@@ -15,7 +15,7 @@ public class CountdownTimer : MonoBehaviour
     }
     void Update()
     {
-        countdown.text = ("" + timeLeft); //Showing the Score on the Canvas
+        countdown.text = ("Time remaining: " + timeLeft); //Showing the Score on the Canvas
     }
     //Simple Coroutine
     IEnumerator LoseTime()
