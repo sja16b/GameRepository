@@ -14,26 +14,34 @@ public class GuardScript : MonoBehaviour {
     private bool                combatIdle = false;
     private bool                isGrounded = true;
     int jumpCount = 0;
+    int IdleTimer;
 
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
         body2d = GetComponent<Rigidbody2D>();
-        
+        IdleTimer = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        combatIdle = false;
+        IdleTimer++;
         // -- Handle input and movement --
         inputX = Input.GetAxis("Horizontal");
-        
+
 
         // Swap direction of sprite depending on walk direction
         if (inputX > 0)
+        {
             transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            IdleTimer = 0;
+        }
         else if (inputX < 0)
+        {
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
+            IdleTimer = 0;
+        }
         // Move
         body2d.velocity = new Vector2(inputX * speed, body2d.velocity.y);
 
@@ -63,7 +71,7 @@ public class GuardScript : MonoBehaviour {
         {
             animator.SetTrigger("Attack");
             GetComponent<AudioSource>().Play();
-            
+            IdleTimer = 0;
         }
 
         //Jump
@@ -72,8 +80,8 @@ public class GuardScript : MonoBehaviour {
             jumpCount = 0;
             animator.SetTrigger("Jump");
             body2d.velocity = new Vector2(body2d.velocity.x, jumpForce);
-            
-           
+            IdleTimer = 0;
+
         }
 
          else if (jumpCount < 1 && Input.GetKeyDown("w"))
@@ -82,6 +90,7 @@ public class GuardScript : MonoBehaviour {
             animator.SetTrigger("Jump");
             body2d.velocity = new Vector2(body2d.velocity.x, jumpForce);
             jumpCount++;
+            IdleTimer = 0;
         }
 
         //Walk
