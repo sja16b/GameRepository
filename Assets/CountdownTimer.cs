@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Threading;
 public class CountdownTimer : MonoBehaviour
 {
-    public int timeLeft = 60; //Seconds Overall
+    public int timeLeft = 0; //Seconds Overall
     public Text countdown; //UI Text Object
     void Start()
     {
@@ -23,7 +23,7 @@ public class CountdownTimer : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            timeLeft--;
+            timeLeft++;
         }
     }
 }
