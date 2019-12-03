@@ -42,12 +42,12 @@ public class Enemy : MonoBehaviour
         }
 
 
-        if (Player.position.x > transform.position.x)
+        if (Player.position.x < transform.position.x)
         {
             //face right
             transform.localScale = new Vector3(1, 1, 1);
         }
-        else if (Player.position.x < transform.position.x)
+        else if (Player.position.x > transform.position.x)
         {
             //face left
             transform.localScale = new Vector3(-1, 1, 1);
