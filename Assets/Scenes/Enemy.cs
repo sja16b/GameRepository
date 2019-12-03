@@ -1,20 +1,29 @@
 ﻿using System.Collections;
-
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Enemy : MonoBehaviour
 {
 
     public Transform Player;
     public Transform enemy;
-    float MoveSpeed = 1;
-    int MaxDist = 2;
+    public float MoveSpeed = 1;
+    int MaxDist = 1;
     int MinDist = 5;
     double range;
 
     private Animator animator;
     private Rigidbody2D body2d;
+    private int nextSceneToLoad;
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        nextSceneToLoad = SceneManager.GetActiveScene().buildIndex ;
+        SceneManager.LoadScene(nextSceneToLoad);
+        Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+    }
 
 
     void Start()
@@ -53,7 +62,12 @@ public class Enemy : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-
+        
 
     }
+    
+
+
 }
+
+
