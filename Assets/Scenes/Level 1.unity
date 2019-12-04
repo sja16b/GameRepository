@@ -9904,7 +9904,7 @@ GameObject:
   - component: {fileID: 986494689}
   - component: {fileID: 986494693}
   m_Layer: 0
-  m_Name: thing1
+  m_Name: Green Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
